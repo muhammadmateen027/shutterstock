@@ -5,7 +5,6 @@ import 'package:network/network.dart';
 import 'package:shutterstock_repository/shutterstock_repository.dart';
 
 part 'dashboard_event.dart';
-
 part 'dashboard_state.dart';
 
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {

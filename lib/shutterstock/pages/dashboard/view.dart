@@ -40,9 +40,11 @@ class _DashboardPageState extends BaseState<DashboardPage> with BasicPage {
       listener: (_, state) {
         if (state is DashboardFailure) {
           _refreshController.loadComplete();
+          return;
         }
         if (state is DashboardInitial) {
           _refreshController.resetNoData();
+          return;
         }
         if (state is ImagesListEnds) {
           _refreshController.loadComplete();
@@ -52,6 +54,7 @@ class _DashboardPageState extends BaseState<DashboardPage> with BasicPage {
           if (state.imagesData!.isEmpty) {
             _refreshController.resetNoData();
           }
+          return;
         }
       },
       buildWhen: (pre, curr) {
@@ -84,22 +87,26 @@ class _DashboardPageState extends BaseState<DashboardPage> with BasicPage {
             _refreshController.loadNoData();
           }
           return SmartRefresher(
-            enablePullDown: false,
-            enablePullUp: true,
-            controller: _refreshController,
-            onLoading: loadRequests,
-            child: ListView.separated(
-              itemCount: state.imagesData!.length,
-              separatorBuilder: (_, index) => const SizedBox(height: 6),
-              itemBuilder: (_, int index) {
-                return index >= state.imagesData!.length
-                    ? BottomLoader()
-                    : ArtistListItem(
-                        imageAssets: state.imagesData![index].assets!,
-                      );
-              },
-            ),
-          );
+              enablePullDown: false,
+              enablePullUp: true,
+              controller: _refreshController,
+              onLoading: loadRequests,
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 1,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                ),
+                itemCount: state.imagesData!.length,
+                itemBuilder: (BuildContext ctx, index) {
+                  return index >= state.imagesData!.length
+                      ? BottomLoader()
+                      : ArtistListItem(
+                          imageAssets: state.imagesData![index].assets!,
+                        );
+                },
+              ));
         }
 
         return const SizedBox();
@@ -122,10 +129,7 @@ class _DashboardPageState extends BaseState<DashboardPage> with BasicPage {
       title: Text(l10n.appBarTitle),
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(50.0),
-        child: BlocProvider.value(
-          value: _dashboardBloc,
-          child: SearchBar(),
-        ),
+        child: BlocProvider.value(value: _dashboardBloc, child: SearchBar()),
       ),
     );
   }

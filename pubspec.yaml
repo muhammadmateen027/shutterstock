@@ -9,11 +9,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  shutterstock_repository:
+    path: packages/shutterstock_repository
+  network:
+    path: packages/network
+
   flutter_localizations:
     sdk: flutter
+
   bloc: ^7.0.0
+  bot_toast: ^4.0.1
+  cached_network_image: ^3.1.0
   flutter_bloc: ^7.0.0
   intl: ^0.17.0
+  pull_to_refresh: ^2.0.0
+  sentry_flutter: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -22,6 +32,25 @@ dev_dependencies:
   mocktail: ^0.1.0
   very_good_analysis: ^2.1.0
 
+dependency_overrides:
+  bloc:
+    git:
+      url: https://github.com/felangel/bloc
+      path: packages/bloc
+      ref: e7955c3e357c303ce5661491ba99e68de06cd46b
+  flutter_bloc:
+    git:
+      url: https://github.com/felangel/bloc
+      path: packages/flutter_bloc
+      ref: e7955c3e357c303ce5661491ba99e68de06cd46b
+  bloc_test:
+    git:
+      url: https://github.com/felangel/bloc
+      path: packages/bloc_test
+      ref: e7955c3e357c303ce5661491ba99e68de06cd46b
+
 flutter:
   uses-material-design: true
   generate: true
+  assets:
+    - .env

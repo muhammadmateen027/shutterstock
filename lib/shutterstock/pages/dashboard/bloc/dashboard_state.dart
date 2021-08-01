@@ -25,20 +25,20 @@ class DashboardFailure extends DashboardState {
 class ImagesLoadedState extends DashboardState {
   const ImagesLoadedState({
     this.query,
-    this.shutterstockImages,
+    this.imagesData,
     this.currentPage,
     this.reachedMaximum = false,
   });
 
   final String? query;
-  final ShutterstockImages? shutterstockImages;
+  final List<Data>? imagesData;
   final int? currentPage;
   final bool reachedMaximum;
 
   @override
   List<Object> get props => [
         query!,
-        shutterstockImages!,
+    imagesData!,
         currentPage!,
         reachedMaximum,
       ];

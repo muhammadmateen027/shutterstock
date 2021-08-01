@@ -15,4 +15,4 @@ class SearchImage extends DashboardEvent {
   List<Object> get props => [query];
 }
 
-class LoadArtists extends DashboardEvent {}
+class LoadImages extends DashboardEvent {}

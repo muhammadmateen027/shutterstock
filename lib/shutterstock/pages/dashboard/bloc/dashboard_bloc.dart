@@ -17,7 +17,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     // When user try to load more data, this function will be called
     // First of all. it will check either last state is ArtistsLoadedState
     // then it'll load more data.
-    // on<LoadArtists>(_loadArtist);
+    on<LoadImages>(_loadImages);
   }
 
   final RepositoryService repository;
@@ -32,21 +32,66 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       emit(DashboardLoading());
 
       final response = await repository.searchImages(event.query);
-      var shutterstockImages = await compute(_parseJson, response.data);
+      var shutterStockImages = await compute(_parseJson, response.data);
 
-      if (shutterstockImages.data!.isEmpty) {
+      if (shutterStockImages.data!.isEmpty) {
         emit(DashboardInitial());
         return;
       }
 
       emit(ImagesLoadedState(
           query: event.query,
-          shutterstockImages: shutterstockImages,
-          currentPage: shutterstockImages.page,
+          imagesData: shutterStockImages.data,
+          currentPage: shutterStockImages.page,
           reachedMaximum:
-              (shutterstockImages.page == shutterstockImages.totalCount)));
+              (shutterStockImages.page == shutterStockImages.totalCount)));
 
       return;
+    } on NetworkException {
+      emit(const DashboardFailure('Unable to load'));
+      return;
+    }
+  }
+
+  void _loadImages(LoadImages event, Emit<DashboardState> emit) async {
+    try {
+      if (state is ImagesLoadedState) {
+        var currentState = (state as ImagesLoadedState);
+
+        if (currentState.reachedMaximum) {
+          emit(ImagesListEnds());
+          return;
+        }
+
+        if (currentState.query!.isEmpty) {
+          emit(DashboardInitial());
+          return;
+        }
+
+        final response = await repository.searchImages(
+          currentState.query!,
+          (currentState.currentPage! + 1),
+        );
+
+        var shutterStockImages = await compute(_parseJson, response.data);
+
+        if (shutterStockImages.data!.isEmpty) {
+          emit(ImagesListEnds());
+          return;
+        }
+
+        List<Data>? list = List.of(currentState.imagesData!)
+          ..addAll(shutterStockImages.data!);
+
+        emit(ImagesLoadedState(
+            query: currentState.query,
+            imagesData: list,
+            currentPage: shutterStockImages.page,
+            reachedMaximum:
+                (shutterStockImages.page == shutterStockImages.totalCount)));
+
+        return;
+      }
     } on NetworkException {
       emit(const DashboardFailure('Unable to load'));
       return;
@@ -55,5 +100,5 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 }
 
 ShutterstockImages _parseJson(dynamic response) {
- return ShutterstockImages.fromJson(response);
+  return ShutterstockImages.fromJson(response);
 }

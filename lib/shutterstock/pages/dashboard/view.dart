@@ -49,7 +49,7 @@ class _DashboardPageState extends BaseState<DashboardPage> with BasicPage {
           return;
         }
         if (state is ImagesLoadedState) {
-          if (state.shutterstockImages!.data!.isEmpty) {
+          if (state.imagesData!.isEmpty) {
             _refreshController.resetNoData();
           }
         }
@@ -62,8 +62,8 @@ class _DashboardPageState extends BaseState<DashboardPage> with BasicPage {
           return true;
         }
         if (curr is ImagesLoadedState) {
+          _refreshController.loadComplete();
           if (curr.reachedMaximum) {
-            _refreshController.loadComplete();
             return false;
           }
           return true;
@@ -88,8 +88,16 @@ class _DashboardPageState extends BaseState<DashboardPage> with BasicPage {
             enablePullUp: true,
             controller: _refreshController,
             onLoading: loadRequests,
-            child: ImagesListView(
-              shutterstockImages: state.shutterstockImages!,
+            child: ListView.separated(
+              itemCount: state.imagesData!.length,
+              separatorBuilder: (_, index) => const SizedBox(height: 6),
+              itemBuilder: (_, int index) {
+                return index >= state.imagesData!.length
+                    ? BottomLoader()
+                    : ArtistListItem(
+                        imageAssets: state.imagesData![index].assets!,
+                      );
+              },
             ),
           );
         }
@@ -101,6 +109,7 @@ class _DashboardPageState extends BaseState<DashboardPage> with BasicPage {
 
   void loadRequests() {
     _refreshController.requestLoading();
+    _dashboardBloc.add(LoadImages());
   }
 
   @override

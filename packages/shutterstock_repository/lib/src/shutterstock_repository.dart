@@ -17,13 +17,14 @@ class ShutterStockRepository implements RepositoryService {
   Future<Response> searchImages(String query, [int page = 1]) async {
     var queryParameters = <String, String>{
       'query': query,
-      'page': '$page'
+      'page': '$page',
+      'per_page': '10',
     };
 
     var url = '${dotenv.env['API_URL']!}/images/search';
     return await client.get(
       url,
-      dotenv.env['API_URL']!,
+      dotenv.env['TOKEN']!,
       queryParameters: queryParameters,
     );
   }

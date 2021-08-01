@@ -13,6 +13,8 @@ class NetworkClient {
   /// We will set DIO options in this function like content type or tokens
   void setDioOptions(String token) {
     dio.options.contentType = Headers.jsonContentType;
+    dio.options.headers['Authorization'] =
+        (token.isEmpty) ? '' : 'Bearer $token';
   }
 
   /// whenever we are require to call a GET method, we will use this function.

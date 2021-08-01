@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shutterstock/l10n/l10n.dart';
+import 'package:shutterstock/shutterstock/shutterstock.dart';
 
 import 'routes_name.dart';
 import 'transition_animation/transition_animation.dart';
@@ -9,7 +10,7 @@ class RouteGenerator {
 
     switch (setting.name) {
       case RoutesName.initial:
-        return PageTransition.slideUpRoute(Container());
+        return PageTransition.slideUpRoute(DashboardPage());
 
       default:
         return _errorRoute();

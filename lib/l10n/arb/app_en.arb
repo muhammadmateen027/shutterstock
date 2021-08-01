@@ -3,5 +3,13 @@
     "counterAppBarTitle": "Counter",
     "@counterAppBarTitle": {
         "description": "Text shown in the AppBar of the Counter Page"
+    },
+    "pageNotAvailableLabel": "Not available",
+    "@pageNotAvailableLabel": {
+        "description": "Text will be shown as a title on the appbar"
+    },
+    "pageNotAvailableDescription": "You requested page is not available at the moment.",
+    "@pageNotAvailableDescription": {
+        "description": "If requested page is not available then this description will be used in a default page."
     }
 }

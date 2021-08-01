@@ -3,5 +3,13 @@
     "counterAppBarTitle": "Contador",
     "@counterAppBarTitle": {
         "description": "Texto mostrado en la AppBar de la página del contador"
+    },
+    "pageNotAvailableLabel": "Not available",
+    "@pageNotAvailableLabel": {
+        "description": "Text will be shown as a title on the appbar"
+    },
+    "pageNotAvailableDescription": "You requested page is not available at the moment.",
+    "@pageNotAvailableDescription": {
+        "description": "If requested page is not available then this description will be used in a default page."
     }
 }

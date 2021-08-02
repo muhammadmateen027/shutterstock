@@ -25,6 +25,7 @@ In this project we will discuss:
 - ✅ [Translation](#working-with-translations-)
 - ✅ [Dependencies](#dependencies-)
 - 🔲  [Tests](#tests-)
+- 🔗  [Links](#links-)
 ---
 ## Problem 💥
 Develop an application that load images from the internet. Images should be shown in an infinite scroll without lagging.
@@ -229,17 +230,31 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 ```
 
 ---
+
 ## Dependencies 💉
 We like to highlight some major dependencies:
-- [dio: ^4.0.0](https://pub.dev/packages/dio) -- A powerful Http client for Dart, which supports Interceptors, Global configuration, FormData, Request Cancellation, File downloading, Timeout etc.
-- [flutter_bloc: ^7.0.0](https://bloclibrary.dev/) -- A predictable state management library that helps implement the BLoC design.
-- [pull_to_refresh: ^2.0.0](https://pub.dev/packages/pull_to_refresh) -- A widget provided to the flutter scroll component drop-down refresh and pull up load.support android and ios.
-- [sentry_flutter: ^5.1.0](https://pub.dev/packages/sentry_flutter) -- This package includes support to native crashes through Sentry's native SDKs: (Android and iOS). It will capture errors in the native layer, including (Java/Kotlin/C/C++ for Android and Objective-C/Swift for iOS).
+- [dio: ^4.0.0](https://pub.dev/packages/dio) -- A powerful Http client for Dart, which supports Interceptors, Global
+  configuration, FormData, Request Cancellation, File downloading, Timeout etc.
+- [flutter_bloc: ^7.0.0](https://bloclibrary.dev/) -- A predictable state management library that helps implement the
+  BLoC design.
+- [pull_to_refresh: ^2.0.0](https://pub.dev/packages/pull_to_refresh) -- A widget provided to the flutter scroll 
+  component drop-down refresh and pull up load.support android and ios.
+- [sentry_flutter: ^5.1.0](https://pub.dev/packages/sentry_flutter) -- This package includes support to native crashes 
+  through Sentry's native SDKs: (Android and iOS). It will capture errors in the native layer, including (Java/Kotlin/C/C++ for Android and Objective-C/Swift for iOS).
+
 ---
 
 ## Running Tests 🧪
 
 This section is under development and will be continued after a break.
+
+---
+
+## Links 🔗
+
+Most of the work I have done is placed in private repositories, and it's confidential. It's not possible for me
+to make it public without permission.
+
 
 [flutter_version]: https://img.shields.io/badge/flutter-2.2.3-1389FD.svg
 

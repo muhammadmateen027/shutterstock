@@ -27,7 +27,6 @@ In this project we will discuss:
 - 🔲  [Tests](#tests-)
 ---
 ## Problem 💥
-
 Develop an application that load images from the internet. Images should be shown in an infinite scroll without lagging.
 For this project you are required to use http://api.shutterstock.com to create api-key.
 

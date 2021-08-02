@@ -9,6 +9,7 @@ import 'package:shutterstock/app/app.dart';
 import 'config/config.dart';
 
 void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = AppBlocObserver();
   final repository = await Initialization.init();
 

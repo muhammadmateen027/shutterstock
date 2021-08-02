@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' hide Image;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:network/network.dart';
 import 'package:shutterstock_repository/shutterstock_repository.dart';
@@ -10,8 +9,6 @@ class Initialization {
   static const bool enableLogging = !kDebugMode;
 
   static Future<RepositoryService> init() async {
-    WidgetsFlutterBinding.ensureInitialized();
-
     // Load environment file
     await dotenv.load(fileName: '.env');
 

@@ -17,11 +17,13 @@
 
 In this project we will discuss:
 
-- ✅ [Problem](#problem)
-- ✅ [Solution](#solution)
+- ✅ [Problem](#problem-)
+- ✅ [Solution](#solution-)
+- ✅ [Reason of the structure](#Reason-of-the-structure-)
+- ✅ [Supports](#supports-)
 - ✅ [Flavours](#flavours-)
 - ✅ [Translation](#working-with-translations-)
-- ✅ [Dependencies](#dependencies)
+- ✅ [Dependencies](#dependencies-)
 - 🔲  [Tests](#tests-)
 ---
 ## Problem 💥
@@ -36,8 +38,8 @@ We will discuss how it's designed and where the files're placed.
 - `lib` will contains view(pages, widgets, components), BLoC, configuration, etc.
 - `packages` will keep network and repository layer.
 
-**Let's discuss the implementation layer by layer**
-- `Pages` section will have UI of the application and business logic layer and BLoC placed with respective UI/view
+**Let's discuss the implementation layer by layer**💻
+- The `pages` section will have UI of the application and business logic layer and BLoC placed with respective UI/view
 - We have used [flutter_bloc](https://bloclibrary.dev/) as a state management library and Business logic's implemented
 in `DashboardBloc` because we have only one (1) page and we created one (1)bloc.
 - `DashboardBloc` communicates with `RepositoryService` interface.
@@ -49,7 +51,7 @@ in `DashboardBloc` because we have only one (1) page and we created one (1)bloc.
 - The `NetworkException` are being thrown from this(NetworkClient) layer and parsed in the respective class. 
 - A `Custom Interceptor` is placed in the network layer. We can use it whenever we require as explained in the layer.  
 
-### State management
+### State management ⚡
 
 ![coverage][state_management] ![coverage][bloc_version] ![coverage][override_bloc_version]
 
@@ -69,11 +71,30 @@ in `DashboardBloc` because we have only one (1) page and we created one (1)bloc.
       }
   }
   ```
-### Log controller
+### Log controller 💾
 
 ![coverage][sentry_io]
 
 - [Sentry.io](https://sentry.io/welcome/) is being used to log all errors and issues in a server.
+---
+## Reason of the structure ⭐
+
+The solution's focusing Single Responsibility concept and let me defend it:
+1. Moved the Repository and network layer in packages section because it's good to go with layer by layer. In layers, 
+  tests can be performed efficiently. How? You can write test cases in the respective package rather than creating in
+   the main section.
+2. Repository is handling single responsibility of communication between BLoC(Business logic component) and the network
+  layer. 
+3. NetworkClient is only focusing the communication between Repository and the rest api client.
+4. BLoC is handling communication between UI and Repository and logics will be implemented there before and after
+   repository response. BLoC handle events and emits the streams for the UI.
+5. UI Layer only responsible to interact with User and pass the value to the BLoC.
+
+---
+## Supports ✨
+
+✅ Shutterstock works on iOS and Android.
+
 ---
 ## Flavours 🚀
 This project contains 3 flavors:

@@ -1,7 +1,7 @@
 part of 'dashboard_bloc.dart';
 
 @immutable
-abstract class DashboardState {
+abstract class DashboardState extends Equatable{
   const DashboardState();
 
   List<Object> get props => [];

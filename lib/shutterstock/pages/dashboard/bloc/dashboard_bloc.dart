@@ -1,10 +1,12 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:network/network.dart';
 import 'package:shutterstock_repository/shutterstock_repository.dart';
 
 part 'dashboard_event.dart';
+
 part 'dashboard_state.dart';
 
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
@@ -14,7 +16,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     on<SearchImage>(_searchImages);
 
     // When user try to load more data, this function will be called
-    // First of all. it will check either last state is ArtistsLoadedState
+    // First of all. it will check either last state is ImagesLoadedState
     // then it'll load more data.
     on<LoadImages>(_loadImages);
   }
@@ -27,27 +29,30 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       return;
     }
 
-    try {
-      emit(DashboardLoading());
+    emit(DashboardLoading());
 
+    try {
       final response = await repository.searchImages(event.query);
-      var shutterStockImages = await compute(_parseJson, response.data);
+      var shutterStockImages = await ShutterstockImages.fromJson(response.data);
+      // var shutterStockImages = await compute(_parseJson, response.data);
 
       if (shutterStockImages.data!.isEmpty) {
         emit(DashboardInitial());
         return;
       }
 
-      emit(ImagesLoadedState(
+      emit(
+        ImagesLoadedState(
           query: event.query,
           imagesData: shutterStockImages.data,
           currentPage: shutterStockImages.page,
           reachedMaximum:
-              (shutterStockImages.page == shutterStockImages.totalCount)));
-
+              (shutterStockImages.page == shutterStockImages.totalCount),
+        ),
+      );
       return;
-    } on NetworkException {
-      emit(const DashboardFailure('Unable to load'));
+    } on NetworkException catch (error) {
+      emit(DashboardFailure(error.getDetail()));
       return;
     }
   }

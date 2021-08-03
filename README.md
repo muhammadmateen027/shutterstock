@@ -31,6 +31,11 @@ In this project we will discuss:
 Develop an application that load images from the internet. Images should be shown in an infinite scroll without lagging.
 For this project you are required to use http://api.shutterstock.com to create api-key.
 
+<table>
+  <tr>
+    <td> <img src="https://user-images.githubusercontent.com/24449076/127884497-9f543064-ef33-4128-b307-8c6ff6b6878d.gif" title="Dashboard" width="180" height="350" /></td>
+   </tr>
+</table>
 ---
 ## Solution 💪
 Solution's designed in that way, so a user can access the images and can see in the list.
